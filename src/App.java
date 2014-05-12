@@ -74,11 +74,10 @@ public class App {
 	        }
 	        
 	        for(int t=0; t<TrainingData2.length; t++)
-	        for(int m=0; m<K; m++)
-	        		
-	        {	
-	        	Kneighbours2[t][m]= new Neighbour();
-	        }
+	        	for(int m=0; m<K; m++)	
+	        	{	
+	        		Kneighbours2[t][m]= new Neighbour();
+	        	}
 
 	        
 
@@ -122,13 +121,12 @@ public class App {
 				Neighbour [] record_Kneighbours = new Neighbour [K];
 				Neighbour [][] record_Kneighbours2 = new Neighbour [TrainingData2.length][K];	
 				
-				/*show databases */
+				/* show databases */
 				System.out.println("TestingData database");
 				for(int i=0; i<TestingData2.length; i++){ 
 					System.out.println("id: " + TestingData2[i].id + "\t" + "x:"+ TestingData2[i].x +
 							"\t" +    "y:" + TestingData2[i].y +  "\t" + "z:" + TestingData2[i].z + "\t" + "activity: "+ TestingData2[i].label);
 				}
-				System.out.println("\n");
 				System.out.println("\n");
 				 
 				for(int j=0; j<TrainingData2.length; j++){
@@ -136,9 +134,7 @@ public class App {
 							"\t" + "y:" + TrainingData2[j].y + "\t" + "z:" + TrainingData2[j].z + "\t" +"activity:"+ TrainingData2[j].label);
 			
 				}
-				
-				System.out.println( "\n\n");
-				
+				System.out.println( "\n");
 				
 				/* set initial value for max_distance in knn neighbour*/
 				//Neighbour.setMaxDistance(1000);
@@ -150,10 +146,8 @@ public class App {
 					System.out.println("Record #:"+ i);
 					for(int j=0; j<TrainingData2.length; j++){
 						
-						
-							
-						/*Get Distance */
-						/*distance = EuclideanDistance(TrainingData2[i].getX(),TrainingData2[i].getY(),0, 
+						/* Get Distance */
+						/* distance = EuclideanDistance(TrainingData2[i].getX(),TrainingData2[i].getY(),0, 
 								          TestingData2[i].getX(), TestingData2[i].getY(), 0);		
 						*/
 						distance = EuclideanDistance(TrainingData2[j].getX(),TrainingData2[j].getY(),TrainingData2[j].getZ(), 
@@ -167,34 +161,40 @@ public class App {
 						if(distance < Neighbour.getMaxDistance()){ //sort only if distance is smaller than max
 							//Arrays.sort(Kneighbours);
 							//record_Kneighbours=BubbleSort(distance,TestingData2[i].getActivity(),Kneighbours );
-							record_Kneighbours=BubbleSort(distance,TrainingData2[j].getActivity(),Kneighbours );
-							
+		//					record_Kneighbours=BubbleSort(distance,TrainingData2[j].getActivity(),Kneighbours );
+							record_Kneighbours2 [i] = BubbleSort(distance, TrainingData2[j].getActivity(),Kneighbours2[i]);
 						}
 						
 											
-					}
+					} //end TrainingData loop
+					
 					System.out.println("~~~Final Result for given record ~~~");
 					
 					for(int j=0; j<Kneighbours.length; j++){
-						System.out.println("distance: " + Kneighbours[j].getDistance() + "\t" + "activity:"+ Kneighbours[j].getActivity());
-				        
+						//System.out.println("distance: " + Kneighbours[j].getDistance() + "\t" + "activity:"+ Kneighbours[j].getActivity());
+						System.out.println("distance: " + Kneighbours2[i][j].getDistance() + "\t" + "activity:"+ Kneighbours2[i][j].getActivity());
+					    
 					}
 					
-					System.out.println("~~~BubbleSort return array ~~~");
 					
-					for(int j=0; j<record_Kneighbours.length; j++){
+					System.out.println("~~~BubbleSort return array ~~~");
+					for(int j=0; j<record_Kneighbours2[i].length; j++){
+							System.out.println("distance: " + record_Kneighbours2[i][j].getDistance() + "\t" + "activity:"+ record_Kneighbours2[i][j].getActivity());
+			      
+					}
+							
+							
+							
+				/*	for(int j=0; j<record_Kneighbours.length; j++){
 						System.out.println("distance: " + record_Kneighbours[j].getDistance() + "\t" + "activity:"+ record_Kneighbours[j].getActivity());
 				        
 					}
-					
-					
-					
-					
+					*/
+						
 					System.out.println( "--------------------------------------------------\n");
-					
-					
-					
-				}
+									
+				}//end TestingData loop
+				
 				
 				
 			}   
@@ -203,13 +203,13 @@ public class App {
 			   private static Neighbour[] BubbleSort(double new_distance, String new_activity,  Neighbour [] KNN_array) {
 				// TODO Auto-generated method stub
 				Neighbour [] temp = new Neighbour [KNN_array.length+1];
-				Neighbour [] temp2 = new Neighbour [KNN_array.length+1];
+				//Neighbour [] temp2 = new Neighbour [KNN_array.length+1];
 				
 				/*Create and Initialize array of Object  */
 		        for(int i1=0; i1< temp.length; i1++)
 		        {	
 		        	temp[i1]= new Neighbour();
-		        	temp2[i1]= new Neighbour();
+		        	//temp2[i1]= new Neighbour();
 		        }
 		    /*	System.out.println("temp values");
 		    	System.out.println("temp length: "+ temp.length);
@@ -237,8 +237,7 @@ public class App {
 			        
 				} 
 		        
-				
-				
+								
 				/* append new data to the end array to be sorted*/
 				temp[KNN_array.length].setActivity(new_activity);
 				temp[KNN_array.length].setDistance(new_distance);
@@ -293,11 +292,7 @@ public class App {
 				
 			}
 
-
-
-
-
-			   
+			   		   
 
 			private static double EuclideanDistance(float trainingDataX, float trainingDataY,
 						float trainingDataZ, float testDataX, float testDataY,
