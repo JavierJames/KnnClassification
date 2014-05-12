@@ -10,7 +10,7 @@ public class App {
 	static ArrayBuff [] TestingData2 = new ArrayBuff [2];
 	static ArrayBuff [] TrainingData2 = new ArrayBuff [4];
 	static Neighbour [] Kneighbours = new Neighbour [K];
-	
+	static Neighbour [][] Kneighbours2 = new Neighbour [TrainingData2.length][K];
 
 		   public static void main(String args[]) {
 		      // create an array list
@@ -72,26 +72,26 @@ public class App {
 	        {	
 	        	Kneighbours[i1]= new Neighbour();
 	        }
+	        
+	        for(int t=0; t<TrainingData2.length; t++)
+	        for(int m=0; m<K; m++)
+	        		
+	        {	
+	        	Kneighbours2[t][m]= new Neighbour();
+	        }
 
-			
+	        
+
 			
 		        TrainMethod();
 				TestMethod();
 				knnMethod();
-				testSort();
 				
 			      
 		     		      
 		   }//end of main
 	
 	
-		   private static void testSort() {
-			// TODO Auto-generated method stub
-			   
-			   
-			
-		}
-
 
 		public static void TrainMethod(){
 
@@ -120,7 +120,7 @@ public class App {
 				// TODO Auto-generated method stub
 				double distance=0;
 				Neighbour [] record_Kneighbours = new Neighbour [K];
-					
+				Neighbour [][] record_Kneighbours2 = new Neighbour [TrainingData2.length][K];	
 				
 				/*show databases */
 				System.out.println("TestingData database");
@@ -179,6 +179,17 @@ public class App {
 						System.out.println("distance: " + Kneighbours[j].getDistance() + "\t" + "activity:"+ Kneighbours[j].getActivity());
 				        
 					}
+					
+					System.out.println("~~~BubbleSort return array ~~~");
+					
+					for(int j=0; j<record_Kneighbours.length; j++){
+						System.out.println("distance: " + record_Kneighbours[j].getDistance() + "\t" + "activity:"+ record_Kneighbours[j].getActivity());
+				        
+					}
+					
+					
+					
+					
 					System.out.println( "--------------------------------------------------\n");
 					
 					
