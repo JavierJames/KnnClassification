@@ -80,6 +80,12 @@ public class ArrayBuff {
 		return label;
 		}
 	
+	public void setActivity(String activity){
+		
+		this.label =activity;
+		}
+	
+	
 	/*
 	
 	class Neighbour {
